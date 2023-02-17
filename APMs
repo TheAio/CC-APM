@@ -1,0 +1,29 @@
+args = {...}
+--This file can run the custom made APM scripts (APMs)
+if #args < 1 then
+  print("Enter path")
+  path = read()
+else
+  path = args[1]
+end
+if fs.exists(path) then
+  File = fs.open(path,"r")
+  FileData = {}
+  while true do
+    line=File.readLine()
+    if line == nil then
+      break
+    else
+      FileData[#FileData+1] = line
+    end
+  end
+  for line=1,#FileData do
+    if string.sub(FileData[line],1,1) == "F" then
+      shell.run("APM findInstall "..string.sub(FileData[line],3,string.len(FileData[line])))
+    else
+      shell.run("APM install "..string.sub(FileData[line],3,string.len(FileData[line])).." -y")
+    end
+  end
+else
+  print("File not found")
+end
