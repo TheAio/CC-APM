@@ -245,7 +245,7 @@ elseif args[1] == "update" then
         return false
     end
     shell.run("mv APM APMold")
-    shell.run("wget https://raw.githubusercontent.com/TheAio/CC-ALLUDE/main/APM APM")
+    shell.run("wget https://raw.githubusercontent.com/TheAio/CC-APM/main/APM APM")
     if fs.exists("APM") then
         shell.run("rm APMold")
     else
