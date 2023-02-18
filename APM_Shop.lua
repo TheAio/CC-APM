@@ -121,4 +121,5 @@ function MainMenu()
       break
     end
   end
-  MainMenu()
+end
+MainMenu()
