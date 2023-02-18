@@ -5,6 +5,16 @@ if #args < 1 then
   path = read()
 else
   path = args[1]
+  if string.upper(string.sub(path,string.len(path)-5,string.len(path))) == ".APMS" then
+  else
+    print("WARNING: THE PATH DOES NOT APPEAR TO BE A APMs SCRIPT")
+    print("Running the file may cause a softlock, are you absolutely sure about what you are doing?")
+    print("Enter: 'Yes do as i say' to continue")
+    if read() == "Yes do as i say" then
+    else
+      print("Aborting install")
+      return false
+    end
 end
 if fs.exists(path) then
   File = fs.open(path,"r")
