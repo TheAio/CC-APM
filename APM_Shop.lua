@@ -6,7 +6,7 @@ else
   term.setTextColor(colors.gray)
   shell.run("wget https://raw.githubusercontent.com/TheAio/CC-APM/main/APM APM")
   term.setTextColor(colors.yellow)
-  if fs.exists(APM) then
+  if fs.exists("APM") then
     print("Sucsess: APM has been installed, continuing in 3 seconds")
     sleep(3)
   else
