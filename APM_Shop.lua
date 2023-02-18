@@ -1,4 +1,4 @@
-if fs.exists(APM) then
+if fs.exists("APM") then
 else
   term.setTextColor(colors.yellow)
   print("Error: Unable to open APM_Shop because APM is missing")
