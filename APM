@@ -168,7 +168,13 @@ function search(name)
         for j=1,#PackN[i] do
             if string.upper(PackN[i][j]) == string.upper(name) then
                 Found[#Found+1] = i
-                if args[1] == "search" then
+                if args[1] == "API" then
+                    if #Found > 1 then
+                        return "Found multiple"
+                    else
+                        return i
+                    end
+                elseif args[1] == "search" then
                     print(name,"or",PackN[i][1],"has id",i)
                     break
                 elseif args[1] == "findInstall" then
@@ -195,7 +201,30 @@ function search(name)
         end
     end
 end
-if args[1] == "install" then
+if args[1] == "API" then
+    if #args < 2 then
+        return false
+    else
+        if args[2] == "Help" then
+            return "API COMMANDS: 'Help', 'SRCH <name>', 'getLen', 'getName <id>'"
+        elseif args[2] == "SRCH" then
+            if #args < 3 then
+                return false
+            else
+                return search(args[3]
+            end
+        elseif args[2] == "getLen" then
+            return #PackI
+        elseif args[2] == "getName" then
+            if #args < 3 then
+                return false
+            else
+                return PackN[args[3]][1]
+            end
+        else
+            return "INVALID COMMAND USE 'Help' for avaible api commands"
+        end
+elseif args[1] == "install" then
     install(args)
 elseif args[1] == "search" then
     search(args[2])
