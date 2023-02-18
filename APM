@@ -224,6 +224,7 @@ if args[1] == "API" then
         else
             return "INVALID COMMAND USE 'Help' for avaible api commands"
         end
+    end
 elseif args[1] == "install" then
     install(args)
 elseif args[1] == "search" then
