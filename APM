@@ -211,7 +211,7 @@ if args[1] == "API" then
             if #args < 3 then
                 return false
             else
-                return search(args[3]
+                return search(args[3])
             end
         elseif args[2] == "getLen" then
             return #PackI
