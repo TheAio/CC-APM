@@ -44,6 +44,17 @@ function MainMenu()
     print("7. Quit")
     sel = read()
     if sel == "1" then
+      if fs.exists("APMs") then
+      else
+        DrawBg()
+        print("APMs is required for packages to work")
+        print("Install or quit? [I/q]")
+        if string.upper(read()) == "I" then
+          shell.run("wget https://raw.githubusercontent.com/TheAio/CC-APM/main/APMs APMs")
+        else
+          return false
+        end
+      end
       while true do
         DrawBg()
         print("APM_Store | Packages")
