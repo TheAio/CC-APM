@@ -230,11 +230,23 @@ if args[1] == "API" then
         end
     end
 elseif args[1] == "install" then
-    install(args)
+    if tonumber(args[2]) == nil then
+        print("The argument",args[2],"does not work with",args[1],"perhaps you ment to run findInstall instead?")
+    else
+        install(args)
+    end
 elseif args[1] == "search" then
-    search(args[2])
+    if tonumber(args[1]) == nil then
+        search(args[2])
+    else
+        print("The argument",args[2],"does not work with",args[1],"perhaps you ment to run mirror instead?")
+    end
 elseif args[1] == "findInstall" then
-    install(search(args[2]))
+    if tonumber(args[1]) == nil then
+        install(search(args[2]))
+    else
+        print("The argument",args[2],"does not work with",args[1],"perhaps you ment to run install instead?")
+    end
 elseif args[1] == "list" then
     for i=1,#PackN do
         sleep(1)
@@ -257,15 +269,19 @@ elseif args[1] == "update" then
         shell.run("mv APMold APM")
     end
 elseif args[1] == "mirror" and #args > 1 then
-    i = tonumber(args[2])
-    if i < #PackN+1 then
-        print(PackN[i][1])
-        print("can be found useing")
-        print(PackI[i])
-        if PackR[i] == nil then
-        else
-            print("after running")
-            print(PackR[i])
+    if tonumber(args[2]) == nil then
+        print("The argument",args[2],"does not work with",args[1],"perhaps you ment to run search instead?")
+    else
+        i = tonumber(args[2])
+        if i < #PackN+1 then
+            print(PackN[i][1])
+            print("can be found useing")
+            print(PackI[i])
+            if PackR[i] == nil then
+            else
+                print("after running")
+                print(PackR[i])
+            end
         end
     end
 end
