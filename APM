@@ -59,6 +59,36 @@ PackN =
 {"TextRequester","TextRx","Text requester"},
 {"CCCE","CCCE.lua","ComputerCraftCheatEngine","ComputerCraft-CheatEngine","CC-CheatEngine"}
 }
+PackD =
+{
+nil,
+nil,
+nil,
+nil,
+nil,
+"ANO",
+nil,
+nil,
+nil,
+"FTP",
+"packman",
+nil,
+nil,
+nil,
+"palpal",
+nil,
+nil,
+nil,
+nil,
+nil,
+nil,
+"SkyNet",
+nil,
+nil,
+nil,
+nil,
+nil
+}
 PackR =
 {
 nil,
@@ -151,7 +181,41 @@ function install(args)
                 end
             end
         end
-        shell.run(PackI[i])
+        if PackD[i] == nil then
+        else
+            if fs.exists(PackD[i]) then
+                print("Dependency already exists")
+            else
+                print("Adding dependency",PackD[i],"this might take some time")
+                shell.run(PackI[i])
+                if fs.exists(".DependencyList") then
+                else
+                    printError("DependencyList is missing, createing a new list")
+                    DL = fs.open(".DependencyList","w")
+                    DL.close()
+                    sleep(1)
+                end
+                DL = fs.open(".DependencyList","r")
+                DLL = {}
+                x = ""
+                while true do
+                    x = DL.readLine()
+                    if x == nil then
+                        break
+                    else
+                        DLL[#DLL+1] = x
+                    end
+                end
+                DLL[#DLL+1] = PackD[i]
+                DL.close()
+                sleep(0.5)
+                DL = fs.open(".DependencyList","w")
+                for DLLN = 1, #DLL do
+                    DL.writeLine(DLL[DLLN])
+                end
+                DL.close()
+            end
+        end
         if fs.exists(PackR[i]) or fs.exists(PackR[i]..".lua") then
         else
             if args[3] == "-y" then
