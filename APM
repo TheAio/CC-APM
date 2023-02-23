@@ -293,6 +293,38 @@ if args[1] == "API" then
             return "INVALID COMMAND USE 'Help' for avaible api commands"
         end
     end
+elseif args[1] == "purge" then
+    if tonumber(args[2]) == nil then
+        print("To unisntall a package without the id, find the id first by running 'search' then run purge with the id")
+    else
+        if args[2] > #PackD then
+            print("The package could not be found, try running 'APM update'")
+        else
+            if PackD[args[2]] == nil then
+                shell.run("rm",PackN[args[2]][1])
+            else
+                print("This will remove atleast 2 files:",PackN[args[2]][1],PackD[args[2]])
+                print("Continue? [Y/n]")
+                if string.upper(read()) == "Y" then
+                    print("Removeing 2 packages, this may take a while")
+                    shell.run("rm",PackN[args[2]][1])
+                    shell.run("rm",PackD[args[2]])
+                    if fs.exists(".DependencyList") then
+                        print("Dependdency list update feature has not been added yet")
+                        print("there is a small chanse that your system just got bricked, sorry")
+                    else
+                        print("DependencyList is missing, it will not be reconstructed")
+                        print("The list is excpected to exist")
+                        print("if you installed these files on a version of APM before the list")
+                        print("you do not have to worry (:")
+                        print("But if you installed it after the update, this might indicate that APM is installed incorectly")
+                        print("or your file system has been damaged")
+                        sleep(10)
+                    end
+                end
+            end
+        end
+    end
 elseif args[1] == "install" then
     if tonumber(args[2]) == nil then
         print("The argument",args[2],"does not work with",args[1],"perhaps you ment to run findInstall instead?")
