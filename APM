@@ -28,6 +28,7 @@ nil,
 nil,
 "make sure to rename this program to 'startup'",
 nil,
+nil,
 nil
 }
 PackN =
@@ -59,7 +60,8 @@ PackN =
 {"TextSender","TextTx","Text sender"},
 {"TextRequester","TextRx","Text requester"},
 {"CCCE","CCCE.lua","ComputerCraftCheatEngine","ComputerCraft-CheatEngine","CC-CheatEngine"},
-{"loadingscreen","loadscrn","loading-screen","loadingscrn"}
+{"loadingscreen","loadscrn","loading-screen","loadingscrn"},
+{"ccdoom","doom","pine3d-doom"}
 }
 PackR =
 {
@@ -85,6 +87,7 @@ nil, --please see https://forums.computercraft.cc/index.php?topic=71.0
 nil, --Please see file for creddits
 nil,  --Please see file for creddits
 "APM findInstall SkyNet",
+nil,
 nil,
 nil,
 nil,
@@ -121,7 +124,8 @@ PackI =
 "wget https://raw.githubusercontent.com/TheAio/CC-ALLUDE/main/TextToInternet.lua TextSender",
 "wget https://raw.githubusercontent.com/TheAio/CC-ALLUDE/main/InternetTextToMonitor.lua startup",
 "wget https://raw.githubusercontent.com/TheAio/CC-Tools/main/CCCE/CCCE.lua CCCE.lua",
-"wget https://raw.githubusercontent.com/TheAio/CatAiOs/main/src/LoadingScreen.lua LoadingScreen"
+"wget https://raw.githubusercontent.com/TheAio/CatAiOs/main/src/LoadingScreen.lua LoadingScreen",
+"pastebin get 6BcdRV75 DoomInstaller"
 }
 if #args < 1 then
     print("USE")
