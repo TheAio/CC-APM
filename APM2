@@ -27,7 +27,7 @@ function searchTYPE(package,useAlt)
 	ID = searchID(package)
 	if ID == nil then
 		return nil
-	elseif useAlt
+	elseif useAlt then
 		if #Packages[ID]==4 then
 			return Packages[ID][4][2]
 		else
