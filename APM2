@@ -1,0 +1,156 @@
+args = {...}
+--{...{name,dep,{SRC,TYPE},{SRC2,TYPE2}}...}
+Packages = {
+	{"cowsay",nil,{"https://raw.githubusercontent.com/Wilma456/Computercraft/master/Shell/cowsay.lua cowsay","WG"},{"cowsay","PM"}},
+	{"packman",nil,{"4zyreNZy","PBR"}},
+	{"harbor",nil,{"ivRuuLSH","PBR"}},
+	{"harbor-extras",nil,{"ivRuuLSH extras","PBR"}},
+	{"palcollection","palpal",{"https://raw.githubusercontent.com/Wendelstein7/palCollection-CC/master/palCollection.lua","WG"}},
+	{"palpal",nil,{"https://raw.githubusercontent.com/Wendelstein7/palPal-CC/master/palPal.lua","WG"}},
+	{"skynet",nil,{"https://raw.githubusercontent.com/osmarks/skynet/master/client.lua skynet","WG"}},
+	{"doom",nil,{"6BcdRV75","PBR"}}
+}
+function searchID(package)
+	for i=1,#Packages do
+		if Packages[i][1] == package then
+			return i
+		end
+	end
+	return nil
+end
+function searchTYPE(package,useAlt)
+	ID = searchID(package)
+	if ID == nil then
+		return nil
+	elseif useAlt
+		if #Packages[ID]==4 then
+			return Packages[ID][4][2]
+		else
+			return Packages[ID][3][2]
+		end
+	else
+		return Packages[ID][3][2]
+	end
+end
+function searchSRC(package,useAlt)
+	ID = searchID(package)
+	if ID == nil then
+		return nil
+	elseif useAlt
+		if #Packages[ID]==4 then
+			return Packages[ID][4][1]
+		else
+			return Packages[ID][3][1]
+		end
+	else
+		return Packages[ID][3][1]
+	end
+end
+function searchDEP(package)
+	ID = searchID(package)
+	if ID == nil then
+		return nil
+	else
+		return Packages[ID][2]
+	end
+end
+if #args == 0 then
+	print("Usage: APM2 <mode> [additional arguments]")
+	print("Modes: install, search, list, help")
+	return false
+end
+for i=1,#args do
+	args[i] = string.lower(args[i])
+end
+if #args < 2 then
+	if args[1] == "list" then
+		for i=1, #Packages do
+			print(Packages[i][1])
+			sleep(0.25)
+		end
+		return true
+	elseif args[1] == "help" then
+		print("Usage: APM2 <mode> [additional arguments]")
+		print("Modes: install, search, list, help")
+		print("For help with specific modes run: APM2 help <mode>")
+		return true
+	end
+	return false
+else
+	if args[1] == "help" then
+		if args[2] == "install" then
+			print("Usage: APM2 install <package> [flags]")
+			print("Flags:")
+			print("-a > use alternate source if avaible")
+		elseif args[2] == "search" then
+			print("Usage: APM2 search <package>")
+		elseif args[2] == "list" then
+			print("Usage: APM2 list")
+		else
+			print("Usage: APM2 help <mode>")
+			print("Modes: install, search, list, help")
+		end
+		return true
+	elseif args[1] == "search" then
+		print(searchSRC(args[2],false))
+	elseif args[1] == "install" then
+		altFlag = false
+		if #args > 2 then
+			if args[3] == "-a" then
+				altFlag = true
+			end
+		end
+		SRC = searchSRC(args[2],altFlag)
+		TYPE = searchTYPE(args[2],altFlag)
+		if SRC == nil then
+			print("INSTALL FAILED, PACKAGE NOT FOUND")
+		end
+		print("Installing",args[2],"via",TYPE,"@",SRC)
+		if TYPE == "WG" then
+			shell.run("wget",SRC)
+			return true
+		elseif TYPE == "WGR" then
+			shell.run("wget run",SRC)
+			return true
+		elseif TYPE == "PB" then
+			shell.run("pastebin get",SRC)
+			return true
+		elseif TYPE == "PBR" then
+			shell.run("pastebin run",SRC)
+			return true
+		elseif TYPE == "HTTPS" then
+			FN = SRC
+			if fs.exists(FN) then
+				while true do
+					FN = SRC.."["..i.."]"
+					if fs.exists(FN) then
+						i=i+1
+					else
+						break
+					end
+				end
+			end
+			F = fs.open(FN,"w")
+			S = http.get(SRC)
+			if S == nil then
+				print("INSTALL FAILED, UNABLE TO REACH SITE")
+				print("Make sure that https connections are enabled and functioning")
+				return false
+			while true do
+				j=S.readLine()
+				if j == nil then
+					break
+				else
+					F.writeLine(j)
+				end
+			end
+			S.close()
+			F.close()
+			print("INSTALLED TO FILE",FN)
+			return true
+		else
+			print("INSTALL FAILED, UNABLE TO UNDERSTAND TYPE:",type)
+			return false
+		end
+	end
+end
