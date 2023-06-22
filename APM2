@@ -8,7 +8,12 @@ Packages = {
 	{"palcollection","palpal",{"https://raw.githubusercontent.com/Wendelstein7/palCollection-CC/master/palCollection.lua","WG"}},
 	{"palpal",nil,{"https://raw.githubusercontent.com/Wendelstein7/palPal-CC/master/palPal.lua","WG"}},
 	{"skynet",nil,{"https://raw.githubusercontent.com/osmarks/skynet/master/client.lua skynet","WG"}},
-	{"doom",nil,{"6BcdRV75","PBR"}}
+	{"doom",nil,{"6BcdRV75","PBR"}},
+	{"unicornpkg",nil,{"https://unicornpkg.github.io/wing/install.lua","WGR"}},
+	{"youcube",nil,{"swsmNAf7","PBR"},{"https://raw.githubusercontent.com/CC-YouCube/installer/main/src/installer.lua","WGR"}},
+	{"luaide",nil,{"vyAZc6tJ luaide","PB"}},
+	{"yp2ccp",nil,{"nxEMWHY3 yp2ccp","PB"}},
+	{"modemshark",nil,{"https://gist.githubusercontent.com/MCJack123/56ca71555d9c0f78d4c985f1e9ad28e8/raw/4e9f0c6fcfdf20e8bb851886d2263cb8c8482ee6/modemshark.lua","WG"}}
 }
 function searchID(package)
 	for i=1,#Packages do
@@ -102,11 +107,58 @@ else
 		end
 		SRC = searchSRC(args[2],altFlag)
 		TYPE = searchTYPE(args[2],altFlag)
+		DEP = searchDEP(args[2])
 		if SRC == nil then
 			print("INSTALL FAILED, PACKAGE NOT FOUND")
+			return false
+		end
+		if DEP == nil then
+		else
+			shell.run("APM2 install",DEP)
 		end
 		print("Installing",args[2],"via",TYPE,"@",SRC)
-		if TYPE == "WG" then
+		function unicornPatch()
+			shell.run("APM2 install unicornpkg")
+			shell.run("/bin/hoof install unix-path-bootstrap")
+			print("PLEASE RESTART YOUR SYSTEM AND TRY AGAIN!")
+		end
+		if TYPE == "UC-PB" then
+			if fs.exists("/usr/bin/packman") then
+				NN=string.sub(SRC,string.len(SRC)-5,string.len(SRC))
+				shell.run("pastebin get",SRC,NN)
+				shell.run("unicorntool install",NN)
+			else
+				unicornPatch()
+				return false
+			end
+			return true
+		elseif TYPE == "UC-WG" then
+			if fs.exists("/usr/bin/packman") then
+				NN=string.sub(SRC,string.len(SRC)-5,string.len(SRC))
+				shell.run("wget",SRC,NN)
+				shell.run("unicorntool install",NN)
+			else
+				unicornPatch()
+				return false
+			end
+			return true
+		elseif TYPE == "UC-LOCAL" then
+			if fs.exists("/usr/bin/packman") then
+				shell.run("unicorntool install",SRC)
+			else
+				unicornPatch()
+				return false
+			end
+			return true
+		elseif TYPE == "PM" then
+			if fs.exists("/usr/bin/packman") then
+				shell.run("packman install",SRC)
+			else
+				shell.run("APM2 install packman")
+				shell.run("packman install",SRC)
+			end
+			return true
+		elseif TYPE == "WG" then
 			shell.run("wget",SRC)
 			return true
 		elseif TYPE == "WGR" then
