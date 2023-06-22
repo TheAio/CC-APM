@@ -136,6 +136,7 @@ else
 				print("INSTALL FAILED, UNABLE TO REACH SITE")
 				print("Make sure that https connections are enabled and functioning")
 				return false
+			end
 			while true do
 				j=S.readLine()
 				if j == nil then
