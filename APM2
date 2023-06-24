@@ -15,8 +15,8 @@ Packages = {
 	{"yp2ccp",nil,{"nxEMWHY3 yp2ccp","PB"}},
 	{"modemshark",nil,{"https://gist.githubusercontent.com/MCJack123/56ca71555d9c0f78d4c985f1e9ad28e8/raw/4e9f0c6fcfdf20e8bb851886d2263cb8c8482ee6/modemshark.lua","WG"}},
 	{"FTP",nil,{"bihLMhkX FTP","PB"}},
-	{"AWT",nil,{"https://raw.githubusercontent.com/TheAio/CC-AWT/main/engine.lua","WG"}},
-	{"AWTS","AWT",{"https://raw.githubusercontent.com/TheAio/CC-AWT/main/AWTS.lua","WG"}}
+	{"AWT",nil,{"https://raw.githubusercontent.com/TheAio/CC-AWT/main/engine.lua AWT","WG"}},
+	{"AWTS","AWT",{"https://raw.githubusercontent.com/TheAio/CC-AWT/main/AWTS.lua AWTS","WG"}}
 }
 function searchID(package)
 	for i=1,#Packages do
