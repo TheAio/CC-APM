@@ -64,14 +64,25 @@ function searchDEP(package)
 end
 if #args == 0 then
 	print("Usage: APM2 <mode> [additional arguments]")
-	print("Modes: install, search, list, help")
+	print("Modes: install, update, search, list, help")
 	return false
 end
 for i=1,#args do
 	args[i] = string.lower(args[i])
 end
 if #args < 2 then
-	if args[1] == "list" then
+	if args[1] == "update" then
+		shell.run("mv APM2 APM2.temp")
+		shell.run("wget https://raw.githubusercontent.com/TheAio/CC-APM/main/APM2 APM2")
+		if fs.exists("APM2") then
+			shell.run("rm APM2.temp")
+			return true
+		else
+			shell.run("mv APM2.temp APM2")
+			print("Update failed, try again later!")
+			return false
+		end
+	elseif args[1] == "list" then
 		for i=1, #Packages do
 			print(Packages[i][1])
 			sleep(0.25)
@@ -79,7 +90,7 @@ if #args < 2 then
 		return true
 	elseif args[1] == "help" then
 		print("Usage: APM2 <mode> [additional arguments]")
-		print("Modes: install, search, list, help")
+		print("Modes: install, update, search, list, help")
 		print("For help with specific modes run: APM2 help <mode>")
 		return true
 	end
