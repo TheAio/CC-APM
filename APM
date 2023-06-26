@@ -1,3 +1,9 @@
+printError("APM has been depricated in favor of APM2, but some packages are not planned to be moved!")
+printError("APM will be avaible for a little while longer to allow users to upgrade or download packages not in APM2")
+print("To upgrade simply run:")
+textutils.slowPrint("wget https://raw.githubusercontent.com/TheAio/CC-APM/main/APM2")
+print("The script will continue in 3 seconds")
+sleep(3)
 args = {...}
 PackW =
 {
