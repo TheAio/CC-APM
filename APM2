@@ -18,7 +18,10 @@ Packages = {
 	{"AWT",nil,{"https://raw.githubusercontent.com/TheAio/CC-AWT/main/engine.lua AWT","WG"}},
 	{"AWTS","AWT",{"https://raw.githubusercontent.com/TheAio/CC-AWT/main/AWTS.lua AWTS","WG"}},
 	{"JWBchat",nil,{"https://github.com/JWBstuhr/jwbchat/raw/main/jwbchat.lua","WGR"}},
-	{"cc-code",nil,{"https://raw.githubusercontent.com/Possseidon/cc-code/main/code/update.lua","WGR"}}
+	{"cc-code",nil,{"https://raw.githubusercontent.com/Possseidon/cc-code/main/code/update.lua","WGR"}},
+	{"OFS",nil,{"https://raw.githubusercontent.com/TheAio/CCTills/main/utills/OFS.lua","WG"}},
+	{"alib",nil,{"https://raw.githubusercontent.com/TheAio/CCTills/main/utills/lib/alib.lua","WG"}},
+	{"disklib",nil,{"https://raw.githubusercontent.com/TheAio/CCTills/main/utills/lib/disklib.lua","WG"}}
 }
 function searchID(package)
 	for i=1,#Packages do
